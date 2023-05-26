@@ -2,46 +2,40 @@
 --CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 --Drop existing Tables 
-DROP TABLE IF EXISTS Users;
---DROP TABLE IF EXISTS Characters;
-DROP TABLE IF EXISTS Votes;
-DROP TABLE IF EXISTS Comments;
-
+DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS votes;
+DROP TABLE IF EXISTS comments;
 
 -- Create Users table
-CREATE TABLE Users (
+CREATE TABLE IF NOT EXISTS users 
+(
     user_id SERIAL PRIMARY KEY,
     username VARCHAR(255),
     email VARCHAR(255),
-    password VARCHAR(255),
-    registration_date DATE,
-    -- Add other user-related fields as needed
+    password VARCHAR(255)       
 );
 
--- Create Characters table
--- CREATE TABLE Characters (
---     character_id SERIAL PRIMARY KEY,
---     character_name VARCHAR(255),
---     movie_name VARCHAR(255),
-    -- Add other character-related fields as needed
--- );
-
 -- Create Votes table
-CREATE TABLE Votes (
+CREATE TABLE IF NOT EXISTS votes 
+(
     vote_id SERIAL PRIMARY KEY,
-    user_id INT REFERENCES Users(user_id),
-    character_id INT REFERENCES Characters(character_id),
+    user_id INT REFERENCES users(user_id),
     vote_date DATE,
-    vote_value NUMERIC,
-    -- Add other vote-related fields as needed
+    vote_value NUMERIC
 );
 
 -- Create Comments table
-CREATE TABLE Comments (
+CREATE TABLE IF NOT EXISTS comments (
     comment_id SERIAL PRIMARY KEY,
-    user_id INT REFERENCES Users(user_id),
-    character_id INT REFERENCES Characters(character_id),
+    user_id INT REFERENCES users(user_id),
     comment_text TEXT,
-    comment_date DATE,
-    -- Add other comment-related fields as needed
+    comment_date DATE
 );
+
+
+INSERT INTO Users (username, email, password)
+VALUES ('John Doe', 'john@example.com', 'password123'),
+       ('Jane Smith', 'jane@example.com', 'password456');
+
+
+

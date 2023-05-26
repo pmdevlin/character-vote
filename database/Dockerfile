@@ -1,13 +1,14 @@
 # use the official postgreSQL image as the base image
 FROM postgres:latest
 
+
 # Set the working directory to /docker-entrypoint-initdb.d
 WORKDIR /docker-entrypoint-initdb.d
 
 # set the enviorment variables to create a new database, user and password 
 ENV POSTGRES_DB character-vote
 ENV POSTGRES_USER postgres
-ENV POSTGRES_PASSWORD password123
+ENV POSTGRES_PASSWORD character123
 
 # copy the schema and seed files from the local file system to docker image
 
@@ -28,10 +29,10 @@ CMD ["postgres"]
 #commands to run the DockerFile:
 
 #create a network 
-# command: docker network create portfolio-network
+# command: docker network create vote-network
 
 # 1: Build docker image
-# command: docker build -t character-database .
+# command: docker build -t voter-db .
 
-# 2: Run Docker container and connect to the portfolio-network
-# command: docker run --name character-database-container --network character-network -e POSTGRES_PASSWORD=password123 character-database
+# 2: Run Docker container and connect to the vote-network
+# command: docker run --name votedb-container voter-db
